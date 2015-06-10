@@ -1,7 +1,4 @@
-meteor-wizard-example
-=====================
-
-This Meteor app demonstrates how to use [forwarder:autoform-wizard](https://github.com/forwarder/meteor-wizard).
+Thrive Data Capture Project
 
 # License
 
