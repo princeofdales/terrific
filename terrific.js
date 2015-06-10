@@ -9,8 +9,8 @@ Schema.step1 = new SimpleSchema({
   // loginEmail:   {type: String,label: "Login mail", max: 200, optional: true },
   name:   {type: String,label: "Full Name", max: 200, optional: false, defaultValue:'First Name, Last Name' },
 
+  user_title:{type:String, label:"add role within company", optional:false, defaultValue:"...current role..."},
   user_photo:{type:String, label:"profile photo URL", optional:true, defaultValue:"...add link to profile pic..."},
-  user_title:{type:String, label:"add role within company", optional:true, defaultValue:"...current role..."},
   user_headline:{type:String, label:"personal headline", optional:true, max:140, defaultValue:"...in 140 characters or less..."},
 
   contact_mail:  {type: String,label: "Contact eMail", max: 200, optional: true },
@@ -30,7 +30,7 @@ Schema.step1 = new SimpleSchema({
 }),
 
 Schema.step2 = new SimpleSchema({
-  cName:   {type: String, label: "Company Name", max: 200, optional:true ,defaultValue:'...Company Name...'},
+  cName:   {type: String, label: "Company Name", max: 200, optional:false ,defaultValue:'...Company Name...'},
   cid:    {type: String, label: "Companies House Reference Number", max: 200, defaultValue:'...CRN: Company Reference Number...'},
 
   hline:  {type: String, label: "Headline", max: 200 ,optional:true, defaultValue:'(...company headline...)'},
@@ -39,11 +39,11 @@ Schema.step2 = new SimpleSchema({
   url:    {type: String, label: "Website", max: 200, optional:true, defaultValue:'(...URL link to website...)'},
   logo:   {type: String, label: "Logo", max: 200, optional:true, defaultValue:'(...URL link to logo...)'},
 //////////////////
-  type:   {type: String, label: "Company Type", optional: false, defaultValue:'StartUp',
-            allowedValues: [
-              "StartUp",
-              "Corporate"]},
-
+  // type:   {type: String, label: "Company Type", optional: false, defaultValue:'StartUp',
+  //           allowedValues: [
+  //             "StartUp",
+  //             "Corporate"]},
+  //
   employees:{
     type: [String],
     label: 'Additional company representatives (name or email)',
@@ -79,7 +79,7 @@ Schema.step2 = new SimpleSchema({
      },
 
   loc:    {type: String, label: "Postcode", max: 10, optional:true, defaultValue:'(XXX XXXX)'},
-  addr:   {type: String, label: "Address", max: 1000 ,optional:true, defaultValue:'(...company address...)'},
+  addr:   {type: String, label: "Address", max: 1000 ,optional:false, defaultValue:'(...company address...)'},
 
   // rep_name:    {type: String, label: "Company representative", max: 200, optional:true,defaultValue:'(...firstname lastname...)' },
   // rep_role:    {type: String, label: "contact role in company", max: 200, optional:true,defaultValue:'(... community dept rep ...)' },
@@ -95,7 +95,7 @@ Schema.step2 = new SimpleSchema({
 
 Schema.step3 = new SimpleSchema({
   companyId:  {type: String, optional: false, max: 200 },
-  title:    {type: String, optional: true, label: "Project Title", max: 200 },
+  title:    {type: String, optional: false, label: "Project Title", max: 200 },
   hline:    {type: String, optional: true, label: "Headline", max: 200 },
   desc:     {type: String, optional: true, label: "Description", min: 20, max: 1000,
     autoform: {rows: 5}   },
@@ -105,8 +105,16 @@ Schema.step3 = new SimpleSchema({
 
   location:   {type: String, optional: true, label: "Location (postcode)", defaultValue:'...SW7 2AZ...'},
 
-  startDate:   {type: String, optional: true, label: "Approximate Start Date", defaultValue:'Today' },
-  duration:   {type: String, optional: true, label: "Duration", defaultValue:'10W'},
+  // startDate:   {type: String, optional: true, label: "Approximate Start Date", defaultValue:'Today' },
+
+
+  startDate: {type: Date, optional: true, label: 'Start Date (approx)',
+    autoform: {type: "bootstrap-datepicker"}},
+
+  endDate: {type: Date, optional: true, label: 'End Date (approx)',
+      autoform: {type: "bootstrap-datepicker"}},
+
+  timeframe:   {type: String, optional: true, label: "Timeframe (notes)"},
 
   status:   {type: String, optional: true, label: "Project Completion Level?" ,defaultValue:'0%'},
   // active:   {type: Boolean, label: "Active", defaultValue: true},
