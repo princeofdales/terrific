@@ -310,6 +310,22 @@ Router.route('/extraProject/', {
   name: 'extraProject'
 });
 
+Router.route('/editCompany/:_id', {
+  name: 'editCompany',
+  template: 'editCompany',
+  data: function() {
+    return Projects.findOne(this.params._id);
+  }
+});
+
+Router.route('/editProject/:_id', {
+  name: 'editProject',
+  template: 'editProject',
+  data: function() {
+    return ExtraProjects.findOne(this.params._id);
+  }
+});
+
 Router.route('/projects/:_id', {
   name: 'viewSummary',
   template: 'viewSummary',

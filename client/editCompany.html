@@ -1,0 +1,7 @@
+<template name="editCompany">
+  {{> quickForm collection="Projects" id="editprjct" type="update" doc=this omitFields="companyId" }}
+</template>
+
+<template name="editProject">
+  {{> quickForm collection="ExtraProjects" id="editprjct" type="update" doc=this omitFields="companyId" }}
+</template>

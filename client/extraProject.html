@@ -4,11 +4,11 @@
 
 <template name="viewSummary">
 
-  <p>Thanks for entering your details {{name}}.</p>
+  <p>Thanks for entering your details {{name}}. <a href='/editCompany/{{_id}}'>Edit</a></p>
 
   <ol>
   {{#each projects}}
-  <li>{{title}}</li>
+  <li>{{title}},<a href='/editProject/{{_id}}'>Edit</a></li>
   <!-- {{> quickForm collection="ExtraProjects" id="prjct" type="update" omitFields="companyId" doc='_id' }} -->
   {{/each}}
   </ol>
