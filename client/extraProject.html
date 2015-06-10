@@ -1,0 +1,19 @@
+<template name="extraProject">
+  {{> quickForm collection="ExtraProjects" id="prjct" type="insert" omitFields="companyId" }}
+</template>
+
+<template name="viewSummary">
+{{bob}}
+  <p>Thanks for entering your details {{name}}.</p>
+
+  <ol>
+  {{#each projects}}
+  <li>{{title}}</li>
+  {{/each}}
+  </ol>
+
+  <a href="/extraProject">Add a project</a><br><br>
+
+  <a href='http://m.bbc.co.uk/'>Finished</a>
+
+</template>
