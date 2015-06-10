@@ -7,10 +7,11 @@ Schema = {};
 Schema.step1 = new SimpleSchema({
   // loginID:   {type: String,label: "Login ID", max: 200, optional: true },
   // loginEmail:   {type: String,label: "Login mail", max: 200, optional: true },
-  name:   {type: String,label: "Full Name", max: 200, optional: false, defaultValue:'First Name, Last Name' },
+  //name:   {type: String,label: "Full Name", max: 200, optional: false, defaultValue:'First Name, Last Name',autoform: {style:"color: red" }},
+  name:   {type: String,label: "Full Name", max: 200, optional: false, defaultValue:'First Name, Last Name'},
 
   user_title:{type:String, label:"add role within company", optional:false, defaultValue:"...current role..."},
-  user_photo:{type:String, label:"profile photo URL", optional:true, defaultValue:"...add link to profile pic..."},
+  user_photo:{type:String, label:"profile photo URL", optional:true, defaultValue:"...maybe right-click 'copy link address' from linkedin pic?..."},
   user_headline:{type:String, label:"personal headline", optional:true, max:140, defaultValue:"...in 140 characters or less..."},
 
   contact_mail:  {type: String,label: "Contact eMail", max: 200, optional: true },
@@ -34,7 +35,7 @@ Schema.step2 = new SimpleSchema({
   cid:    {type: String, label: "Companies House Reference Number", max: 200, defaultValue:'...CRN: Company Reference Number...'},
 
   hline:  {type: String, label: "Headline", max: 200 ,optional:true, defaultValue:'(...company headline...)'},
-  about:   {type: String, label: "About", max: 1000 ,optional:true, defaultValue:'(...company description...)'},
+  about:   {type: String, label: "About (max 500 chars)", max: 500 ,optional:true, defaultValue:'(...company description...)'},
 
   url:    {type: String, label: "Website", max: 200, optional:true, defaultValue:'(...URL link to website...)'},
   logo:   {type: String, label: "Logo", max: 200, optional:true, defaultValue:'(...URL link to logo...)'},
@@ -71,7 +72,6 @@ Schema.step2 = new SimpleSchema({
               {label: "Transport",value: "transport"},
               {label: "Education",value: "education"},
               {label: "(Other)",value: "other"},
-              {label: "TBD",value: "tbd"}
             ]}
         },
      "industry.$": {
@@ -86,24 +86,26 @@ Schema.step2 = new SimpleSchema({
   // rep_email:   {type: String, label: "contact email", max: 200, optional:true,defaultValue:'(...name@company.com...)' },
   // rep_tel:     {type: String, label: "contact telephone #", max: 200, optional:true,defaultValue:'(...+44 #### ### ####...)' },
 
-  img:    {type: String, label: "Image Url",  optional:true, defaultValue:'(...URL link to company picture(s)...)'},
+  img:    {type: String, label: "Cover image for your company (URL / link)",  optional:true, defaultValue:'(...URL link to company picture(s)...)'},
   // projects:{type: [String], optional:true, max:10},
 
-  news: {type: String, optional:true,defaultValue:'...recent company news, Twitter etc here...'}
+  twitter: {type: String, optional:true,label: 'Twitter id', defaultValue:'@Twitter'},
+  news: {type: String, optional:true,label:'News text', defaultValue:'...recent company news, quotes etc...',  autoform: {rows: 5}   },
+  newslinks: {type: String, optional:true,label:'News link(s)',defaultValue:'...www.info-here.co...'}
 
 });
 
 Schema.step3 = new SimpleSchema({
   companyId:  {type: String, optional: false, max: 200 },
-  title:    {type: String, optional: false, label: "Project Title", max: 200 },
-  hline:    {type: String, optional: true, label: "Headline", max: 200 },
-  desc:     {type: String, optional: true, label: "Description", min: 20, max: 1000,
+  // title:    {type: String, optional: false, label: "Project Title", max: 200 },
+  hline:    {type: String, optional: false, label: "Headline", max: 200 },
+  desc:     {type: String, optional: true, label: "Description (max 200 chars)",  max: 1000,
     autoform: {rows: 5}   },
   img:      {type: String, optional: true, label: "URL link to project picture(s)"   },
   link:     {type: String, optional: true, label: "Link to project on your website",    regEx: SimpleSchema.RegEx.Url,
     autoform: {type: "url"} },
 
-  location:   {type: String, optional: true, label: "Location (postcode)", defaultValue:'...SW7 2AZ...'},
+  location:   {type: String, optional: true, label: "Location (postcode)", defaultValue:'...(XXX XXX)...'},
 
   // startDate:   {type: String, optional: true, label: "Approximate Start Date", defaultValue:'Today' },
 
@@ -116,10 +118,10 @@ Schema.step3 = new SimpleSchema({
 
   timeframe:   {type: String, optional: true, label: "Timeframe (notes)"},
 
-  status:   {type: String, optional: true, label: "Project Completion Level?" ,defaultValue:'0%'},
+  status:   {type: String, optional: true, label: "Current Completion Level of Project" ,defaultValue:'0%'},
   // active:   {type: Boolean, label: "Active", defaultValue: true},
 
-  categories: {type: [String],optional: true,
+  categories: {type: [String],optional: true, label:'Cause(s) your project serves : (multi-select: CTRL+SELECT)',
    autoform: {
      type: "select-multiple",
      options: function () {
@@ -128,26 +130,28 @@ Schema.step3 = new SimpleSchema({
          {label:'Energy Management',value:'Energy Management'},
          {label:'Sustainable Transport', value: 'Sustainable Transport'},
          {label:'Sustainable Products', value:'Sustainable Products'},
+         {label:'Wildlife and Habitat', value:'wildlife_Habitat'},
+         {label:'-', value:''},
 
          {label:'Education',value: 'Education'},
          {label:'Community',value: 'Community'},
-         {label:'Employment',value: 'Employment'},
-         {label:'Food and Shelter',value: 'Food and Shelter'},
+         {label:'Skills & Employment',value: 'skills_Employment'},
+         {label:'Food & Shelter',value: 'food_Shelter'},
          {label:'Accessibility', value: 'Accessibility'},
+         {label:'-', value:''},
 
          {label:'Fitness',value: 'Fitness'},
          {label:'Mental Health',value:'Mental Health'},
          {label:'Rehabilitation',value:'Rehabilitation'},
          {label:'Seniors',value:'Seniors'},
-         {label:'Special Needs', value: 'Special Needs'},
-         {label:'Lecturing Opportunites',value:'Lecturing Opportunites'}
+         {label:'Special Needs', value: 'Special Needs'}
          ];
        return tmp;
      }
    }
  },
 
-  interactions: {type: [String],optional: true,
+  interactions: {type: [String],optional: true,label: 'Initiaitves(s) your project serves : (multi-select: CTRL+SELECT)',
    autoform: {
      type: "select-multiple",
      options: function () {
@@ -157,7 +161,7 @@ Schema.step3 = new SimpleSchema({
          {label:'Volunteering',value:'Volunteering'},
          {label:'Research Agreements',value:'Research Agreements'},
          {label:'Product collaboration',value:'Product collaboration'},
-         {label:'Brand Collaboration',value:'Brand Collaboration'},
+         {label:'Industry Collaboration',value:'industryCollaboration'},
          {label:'Lecturing Opportunites',value:'Lecturing Opportunites'}
          ];
        return tmp;
@@ -165,9 +169,12 @@ Schema.step3 = new SimpleSchema({
    }
  },
 
-  impact_e:   {type: String, optional: true, label: "Environmental Impact", defaultValue:'xx trees planted'},
-  impact_h:   {type: String, optional: true, label: "Health Impact", defaultValue:'20 xx upgraded'},
-  impact_r:   {type: String, optional: true, label: "Rights Impact", defaultValue:'10 ppl xx'}
+  impact_e:   {type: String, optional: true, label: "Environmental Impact", defaultValue:'eg. How many CO2 emissions can this project help reduce, or how many trees will you help plant'},
+  impact_h:   {type: String, optional: true, label: "Health Impact", defaultValue:'eg. How many people will you be able to help with this project?'},
+  impact_r:   {type: String, optional: true, label: "Rights Impact", defaultValue:'eg. How many people will you be able to reach out to?'},
+
+  impact_how: {type: String, optional:true,label:'Impact - How ?', defaultValue:'Please explain how you will achieve the impact measures with this project',  autoform: {rows: 5}   }
+
 
 });
 
