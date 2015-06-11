@@ -211,6 +211,15 @@ if (Meteor.isClient) {
           });
         }
       }
+    },
+    editcmpny:{
+      after:{
+        update: function(a,b,c){
+          Router.go('viewSummary', {
+            _id:  Session.get('companyId')
+          });
+        }
+      }
     }
   })
 
